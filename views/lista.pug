@@ -5,49 +5,49 @@ html(lang='es' ng-app="buscaCochesApp")
     meta(name='viewport', content='initial-scale=1, maximum-scale=1')
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
-    script(src='http://code.jquery.com/jquery-1.6.2.min.js')
+    link(rel='stylesheet', href='../bower_components/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='../bower_components/bootstrap-select/dist/css/bootstrap-select.min.css')
+    script(src='./bower_components/jquery/dist/jquery.min.js')
+    script(src="./bower_components/bootstrap-select/dist/js/bootstrap-select.min.js")
+    script(src='./bower_components/bootstrap/dist/js/bootstrap.min.js')
+    script(src='./bower_components/bacon/dist/Bacon.min.js')
+    script(src='../bower_components/angular/angular.min.js')
+    script(src='./bower_components/angular-bacon/dist/angular-bacon.min.js')
   body
     block content
 div.container
     header.row
         h1= title
-    side.row
-      form.form-horizontal
-        div.form-group
-          label(for='search-url-input').control-label.col-sm-2  Url de busqueda
-          div.col-sm-10
-            input(type='url', name='search-url-imput')#search-url-input.form-control
-        div.form-group
-          div.col-sm-offset-2.col-sm-10
-            button(type='submit').btn.btn-default Consulta
-    div.row.row-content(ng-controller="CochesController")
-        - if(elementos.length)
-            table(data-role='listview')
-                    tr.coches.clickable-row(ng-repeat="coche in coches")
-                            td.
-                              {{coche.marca}}
-                            td.
-                              {{coche.modelo}}
-                            td.
-                              {{coche.precio}}
-                            td.
-                              {{coche.ciudad}}
-                            td.
-                              {{coche.combustible}}
-                            td.
-                              {{coche.kilometros}}
-                            td.
-                              {{coche.videPorDelante}}
-                            td.
-                              {{coche.costeAnual}}
+    div.row.content(ng-controller="CochesController")
+      aside#busqueda.col-sm-4
+        include ./includes/busqueda.pug
+      div.row.row-content
+        table(data-role='listview').table-striped.table-bordered.table-hover.table-condensed
+          tbody
+                tr.coches.clickable-row(ng-repeat="coche in coches")
+                        td.
+                          {{coche.marca}}
+                        td.
+                          {{coche.modelo}}
+                        td.
+                          {{coche.precio}}
+                        td.
+                          {{coche.ciudad}}
+                        td.
+                          {{coche.combustible}}
+                        td.
+                          {{coche.kilometros}}
+                        td.
+                          {{coche.videPorDelante}}
+                        td.
+                            {{coche.costeAnual}}
+    footer.row (c) copirrait cacafuti enterpries 1991
 script.
  jQuery(document).ready(function($) {
     $(".clickable-row").click(function() {
         window.open ($(this).data("href"),'_blank');
     });
  });
-script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js")
+//script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js")
 script(src="javascripts/app.js")
 script(src="javascripts/controllers.js")
-script(src="javascripts/services.js")

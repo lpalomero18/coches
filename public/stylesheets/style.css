@@ -6,20 +6,3 @@ body {
 a {
   color: #00B7FF;
 }
-tr:nth-child(even){
-  background-color: #dcdcdc;
-}
-tr:nth-child(odd){
-  background-color: #aaaaaa;
-}
-tr:first-child{
-	background-color: black;
-	color: white;
-}
-tr:hover{
-	background: beige;
-	cursor: pointer;
-}
-.coches td{
-	padding: 0 1em;
-}

@@ -13,18 +13,21 @@ modelos=[['Zafira','Corsa','Insignia'],
 		['i30','i40']];
 combustibles=['Diesel','Gasolina','Hibrido'];
 module.exports = function() {
-  var data = { cochesTest: [] }
-  // Create 1000 users 
-  for (var i = 0; i < 100; i++) {
-  	marca=Math.floor(Math.random()*marcas.length);
-    data.cochesTest.push(
-    	{marca: marcas[marca]
-    	,modelo: modelos[marca][Math.floor(Math.random()*modelos[marca].length)]
-    	,precio: Math.floor(Math.random()*25000)+1000
-    	,ciudad: provincias[Math.floor(Math.random()*provincias.length)]
-    	,combustible: combustibles[Math.floor(Math.random()*combustibles.length)]
-    	,kilometros:  Math.floor(Math.random()*250000)+5000
-    })
-  }
-  return data
+  var data = { cochesTest1: [],cochesTest2: [] };
+  pueblaCoches(data.cochesTest1);
+  pueblaCoches(data.cochesTest2);
+  return data;
+};
+function pueblaCoches(lista) {
+  marca=Math.floor(Math.random()*marcas.length);
+  lista.push(
+      {marca: marcas[marca]
+      ,modelo: modelos[marca][Math.floor(Math.random()*modelos[marca].length)]
+      ,precio: Math.floor(Math.random()*25000)+1000
+      ,ciudad: provincias[Math.floor(Math.random()*provincias.length)]
+      ,combustible: combustibles[Math.floor(Math.random()*combustibles.length)]
+      ,kilometros:  Math.floor(Math.random()*250000)+5000
+    });
+  if (lista.length<100) pueblaCoches(lista);
+  return lista;
 }

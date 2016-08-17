@@ -1,0 +1,50 @@
+.example {
+    display: block;
+    background-color: lightgrey;
+    border: 1px darkgrey solid;
+    padding: 0.5em;
+}
+
+.example:before {
+    content: "example";
+    color: darkslategrey;
+    font-size: 0.8em;
+    font-family: sans-serif;
+    text-transform: uppercase;
+}
+
+.highlight {
+    font-size: 1.2em;
+    text-transform: uppercase;
+    text-decoration: underline;
+}
+
+.problema {
+    color: darkred;
+    font-weight: bold;
+}
+
+body {
+    counter-reset: h2counter;
+}
+
+h1 {
+    counter-reset: h2counter;
+}
+
+h2:before {
+    content: counter(h2counter) ".\0000a0\0000a0";
+    counter-reset: h3counter;
+}
+h2{
+    counter-increment: h2counter;
+	
+}
+
+h3:before {
+    content: counter(h2counter) "." counter(h3counter) ".\0000a0\0000a0";
+}
+
+h3 {
+    counter-increment: h3counter;
+}

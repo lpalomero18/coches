@@ -1,0 +1,70 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./estilos.css">
+    <title>Documentaciones</title>
+</head>
+
+<body>
+    <div class='container'>
+        <div class='row'>
+            <h2>El driver</h2> Se tienen que encargar de
+            <ul>
+                <li>Montar la URL, ya que esta puede ser muy diferente</li>
+                <li>Invocar al servicio externo, que ser&aacute; de muchas maneras</li>
+                <li>Averiguar cuantas invocaciones hay que hacer, ya que puede haber resultados paginados</li>
+                <li>Guardar los resultados, parsearlos y devolcer el JSON.</li>
+            </ul>
+            <h2>El front end</h2> Tiene que ser <strong>sencillo</strong> y constar de dos partes bien diferenciadas:
+            <ul>
+                <li>La b&uacute;squeda</li>
+                <li>Los resultados</li>
+            </ul>
+            <h3>La busqueda</h3> Tiene que tener los siguientes campos:
+            <ul>
+                <li><h4>Marca.</h4>
+                    <p>Tiene que tener los resultados cargados del servidor. Debe comenzar <span class='badge estado-inicial'>vac&iacute;o</span> y debe ser un <span class='label label-danger opcionales'>campo obligatorio</span>. No permite selecci&oacute;n m&uacute;tiple. <small>De momento, en una versi&oacute;n posterior podr&iacute;a estudiarse</small></p>
+                </li>
+                <li><h4>Modelo.</h4>
+                    <p>Se debe cargar con elementos por ajax. Debe comenzar <span class='badge estado-inicial'>vac&iacute;o</span> y debe ser un <span class="label label-success opcionales">campo opcional</span>.Tiene que ser sencillo, mostrar los modelos gen&eacute;ricos</p>
+                    <div class="example well">
+                        <p>Mostrar <strong>C4</strong> o <strong>Megane</strong> en vez de <strong>C4 VTS 1.6 TDI</strong> o <strong>Megane deluxe edition 2.0 HDI FAP</strong></p>
+                    </div>
+                    <p>Esto est&aacute; muy ligado al modelo de datos interno de la aplicaci&oacute;n <span class="highlight">aurora</span>.</p>
+                </li>
+                <li><h4>Antigüedad m&aacute;xima.</h4>
+                    <p>Debe ser un dropdown de años. Debe comenzar <span class='badge estado-inicial'>vac&iacute;o</span> y debe ser un <span class='label label-success opcionales'>campo opcional</span>. se debe remontar a 1980 como m&aacute;ximo.</p>
+                </li>
+                <li><h4>Combustible.</h4>
+                    <p>Dropdown con las t&iacute;picas opciones. Debe comenzar <span class='badge estado-inicial'>vac&iacute;o</span> y debe ser un <span class='label label-success opcionales'>campo opcional</span>. Las opciones deben ser:
+                        <ul>
+                            <li>Gasolina</li>
+                            <li>Di&eacute;sel</li>
+                            <li>H&iacute;brido</li>
+                        </ul>
+                    </p>
+                </li>
+                <li><h4>Limites de pasta.</h4>
+                    <p>Deben ser dos campos. Ambos deben comenzar <span class='badge estado-inicial'>vac&iacute;os</span> y deben ser <span class='label label-success opcionales'>campos opcionales</span>. POdr&iacute;an ser dropdowns o no. LA motivaci&oacute;n para hacer de ellos un dropdown podr&iacute;a ser el intentar ahorrar trabajo para no tener que hacer un matching con las webs que s&iacute; que tienen los rangos de pasta tabulados. No obstante, como cada web puede tener sus propios rangos diferentes, va a ser necesario ahcer este matching dentro de cada uno de los drivers, por lo que no va a ahorrar</p>
+                </li>
+            </ul>
+            Tiene que tener un boton para traerse los resultados
+            <h3>Los resultados</h3> Es un matriz con una cabecera
+            <h2>El modelo de datos interno de la aplicaci&oacute;n: <span class="highlight">aurora</span></h2>
+            <p>El modelo de datos va ser un problema. El mapeo de las marcas no deber&iacute;a ser un problema, pero va a ser necesaria una tabla de equivalencia entre el c&oacute;digo interno de la aplicaci&oacute;n y todos los c&oacute;digos de las distintas webs.
+                <p>
+                    <p>Harina de otro costal va a ser el <span class='problema'>problema</span> con los <strong>modelos</strong>. Tenemos que asegurar que hay una relaci&oacute;n 1 a N completa. Es decir, no puede quedarse ninguno de los modelos de las webs fuera, no puede haber "hu&eacute;rfanos". Los modelos se actualizan periodicamente, por lo que hace falta alguna funcionalidad que
+                        <ul>
+                            <li>Extraiga peri&oacute;dicamente los modelos para todas las marcas de las web.</li>
+                            <li>Compruebe cuales de los modelos <strong>no</strong> est&aacute;n en el modelo de datos interno de <span class="highlight">aurora</span> </li>
+                            <li>Visualiza los modelos <span class="italic">hu&eacute;rfanos</span> para que puedan asociarse a un modelo. Idealmente esto deber&iacute;a poder hacerse con un editor. <span class="glyphicon glyphicon-arrow-right"></span>Esto es una aplicaci&oacute; adicional y no precisamente sencilla. De momento habr&aacute; que hacer simplemente una herramienta de visualizaci&oacute;n en forma de grid que por lo menos evidencia los "huecos" y los "hu&eacute;rfanos".
+                            </li>
+                        </ul>
+                    </p>
+        </div>
+    </div>
+</body>
+
+</html>

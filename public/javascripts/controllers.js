@@ -1,42 +1,27 @@
 'use strict';
-angular.module("buscaCochesApp")
- .controller('CochesController', ['$scope', 'menuFactory', function($scope, menuFactory){
+var ejemplo = [{ "marca": "Mercedes", "modelo": "330SL", "precio": 7648, "ciudad": "Tarragona", "combustible": "Diesel", "kilometros": 213415 }, { "marca": "Seat", "modelo": "Alhambra", "precio": 20389, "ciudad": "Huesca", "combustible": "Hibrido", "kilometros": 246065 }];
+angular.module("buscaCochesApp", ['angular-bacon'])
+    .controller('CochesController', function($scope) {
 
-	$scope.tab=1;
-	$scope.filtText = '';
-	$scope.showDetails = false;
+ 
+    	// Cuando se clica en el boton se invoca a esta funcion
+        $scope.search = function() {
+            //$scope.coches = [];
+            var sources = ['http://localhost:3004/cochesTest1', 'http://localhost:3004/cochesTest2'];
+            // Construimos un stream con las fuentes y los espaciamos unos segundos para no acogotar al servidor
+            var filter = Bacon.sequentially(2000, sources);
 
-	$scope.coches = {};
-	menuFactory.getCoches().then(
-		function(response){
-			$scope.coches=response.data;
-			console.log($scope.coches);
-		});
+            function buscaResultados(argument) {
+                return Bacon.fromPromise($.ajax({
+                    url: argument
+                }));
+            }
+            //flatMap para mapear las fuentes con la función que va a buscar resultados por ajax 
+            //scan para concatenar los resultaros
+            //digest para enlazar el observable con el $scope
+            filter.flatMap(buscaResultados).scan([], function(a,b){return a.concat(b)}).digest($scope, 'coches');
+        };
 
-	$scope.select=function(setTab){
-		$scope.tab=setTab;
-		if (setTab === 2){
-			$scope.filtText='appetizers';}
-		else if (setTab === 3){
-					$scope.filtText='mains';}
-		else if (setTab === 4){
-					$scope.filtText='desserts';}
-		else {$scope.filtText = '';}
-	};
-	$scope.isSelected=function(checkTab){
-		return ($scope.tab === checkTab);
-	};
-}])
-
-	.controller('ContactController', ['$scope', function($scope){
-		$scope.feedback = {mychannel:"", firstName:"d", lastName:"", agree:false,email:""};
-		var channels=[{value:"tel",label:"Tel."},
-					  {value:"Email", label:"Email"}];
-		$scope.channels = channels;
-		$scope.invalidChannelSelection = false;
-	}])
-	.controller('FeedbackController', ['$scope', function($scope){
-//		$scope.sendFeedback = function()
-	}])
+    })
 
 ;

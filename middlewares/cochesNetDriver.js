@@ -6,6 +6,9 @@ var jsdom = require('jsdom'),
 var exports = module.exports = {};
 const ruta='http://www.coches.net/';
  
+exports.test = function() {
+    console.log('Driver cargado crrectamente');
+}
 /*
  * Function to extract the results from coches.net website. This is the function where a great deal of the page Business Logic is implemented
  * cwindow: the HTML window as parsed by jsdom.env()
@@ -36,7 +39,7 @@ function extractCochesDotNet(window) {
 }
 //
 exports.getResults=function(options){
-quieroMuchasWebs(webs).then(
+iWantManyWebs(webs).then(
     function(exito) {
 
 //        console.log('EXITO: ' + exito);

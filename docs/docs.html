@@ -17,6 +17,11 @@
                 <li>Averiguar cuantas invocaciones hay que hacer, ya que puede haber resultados paginados</li>
                 <li>Guardar los resultados, parsearlos y devolcer el JSON.</li>
             </ul>
+            Para ello todos los driver tienen que implementar una funcion getResults(params,callback) donde
+            <ol>
+                <li><strong>params</strong> - Son los parametros que no es mas que el objeto<code>request.query</code> de express</li>
+                <li><strong>callback</strong> - Es la funcion callback a la que invocar cuando los resultados estén prepaados. </li>
+            </ol>
             <h2>El front end</h2> Tiene que ser <strong>sencillo</strong> y constar de dos partes bien diferenciadas:
             <ul>
                 <li>La b&uacute;squeda</li>
@@ -24,20 +29,27 @@
             </ul>
             <h3>La busqueda</h3> Tiene que tener los siguientes campos:
             <ul>
-                <li><h4>Marca.</h4>
-                    <p>Tiene que tener los resultados cargados del servidor. Debe comenzar <span class='badge estado-inicial'>vac&iacute;o</span> y debe ser un <span class='label label-danger opcionales'>campo obligatorio</span>. No permite selecci&oacute;n m&uacute;tiple. <small>De momento, en una versi&oacute;n posterior podr&iacute;a estudiarse</small></p>
+                <li>
+                    <h4>Marca.</h4>
+                    <p>Tiene que tener los resultados cargados del servidor. Debe comenzar <span class='badge estado-inicial'>vac&iacute;o</span> y debe ser un <span class='label label-danger opcionales'>campo obligatorio</span>. No permite selecci&oacute;n m&uacute;tiple. <small>De momento, en una versi&oacute;n posterior podr&iacute;a estudiarse</small>.</p>
+                    Se mapear&aacute; a <code>formData.marca</code>.
                 </li>
-                <li><h4>Modelo.</h4>
-                    <p>Se debe cargar con elementos por ajax. Debe comenzar <span class='badge estado-inicial'>vac&iacute;o</span> y debe ser un <span class="label label-success opcionales">campo opcional</span>.Tiene que ser sencillo, mostrar los modelos gen&eacute;ricos</p>
+                <li>
+                    <h4>Modelo.</h4>
+                    <p>Se debe cargar con elementos por ajax. Debe comenzar <span class='badge estado-inicial'>vac&iacute;o</span> y debe ser un <span class="label label-success opcionales">campo opcional</span>.Tiene que ser sencillo, mostrar los modelos gen&eacute;ricos.</p>
                     <div class="example well">
                         <p>Mostrar <strong>C4</strong> o <strong>Megane</strong> en vez de <strong>C4 VTS 1.6 TDI</strong> o <strong>Megane deluxe edition 2.0 HDI FAP</strong></p>
                     </div>
                     <p>Esto est&aacute; muy ligado al modelo de datos interno de la aplicaci&oacute;n <span class="highlight">aurora</span>.</p>
+                    Se mapear&aacute; a <code>formData.modelo</code>.
                 </li>
-                <li><h4>Antigüedad m&aacute;xima.</h4>
-                    <p>Debe ser un dropdown de años. Debe comenzar <span class='badge estado-inicial'>vac&iacute;o</span> y debe ser un <span class='label label-success opcionales'>campo opcional</span>. se debe remontar a 1980 como m&aacute;ximo.</p>
+                <li>
+                    <h4>Antigüedad m&aacute;xima.</h4>
+                    <p>Debe ser dos dropdown de años. Debe comenzar <span class='badge estado-inicial'>vac&iacute;o</span> y debe ser un <span class='label label-success opcionales'>campo opcional</span>. se debe remontar a 1980 como m&aacute;ximo.</p>
+                    Se mapear&aacute;n a <code>formData.ageMin</code> y <code>formData.ageMax</code>.
                 </li>
-                <li><h4>Combustible.</h4>
+                <li>
+                    <h4>Combustible.</h4>
                     <p>Dropdown con las t&iacute;picas opciones. Debe comenzar <span class='badge estado-inicial'>vac&iacute;o</span> y debe ser un <span class='label label-success opcionales'>campo opcional</span>. Las opciones deben ser:
                         <ul>
                             <li>Gasolina</li>
@@ -45,13 +57,22 @@
                             <li>H&iacute;brido</li>
                         </ul>
                     </p>
+                    Se mapear&aacute; a <code>formData.combustible</code>.
                 </li>
-                <li><h4>Limites de pasta.</h4>
-                    <p>Deben ser dos campos. Ambos deben comenzar <span class='badge estado-inicial'>vac&iacute;os</span> y deben ser <span class='label label-success opcionales'>campos opcionales</span>. POdr&iacute;an ser dropdowns o no. LA motivaci&oacute;n para hacer de ellos un dropdown podr&iacute;a ser el intentar ahorrar trabajo para no tener que hacer un matching con las webs que s&iacute; que tienen los rangos de pasta tabulados. No obstante, como cada web puede tener sus propios rangos diferentes, va a ser necesario ahcer este matching dentro de cada uno de los drivers, por lo que no va a ahorrar</p>
+                <li>
+                    <h4>Limites de pasta.</h4>
+                    <p>Deben ser dos campos. Ambos deben comenzar <span class='badge estado-inicial'>vac&iacute;os</span> y deben ser <span class='label label-success opcionales'>campos opcionales</span>. POdr&iacute;an ser dropdowns o no. LA motivaci&oacute;n para hacer de ellos un dropdown podr&iacute;a ser el intentar ahorrar trabajo para no tener que hacer un matching con las webs que s&iacute; que tienen los rangos de pasta tabulados. No obstante, como cada web puede tener sus propios rangos diferentes, va a ser necesario ahcer este matching dentro de cada uno de los drivers, por lo que no va a ahorrar.</p>
+                </li>
+                Se mapear&aacute;n a <code>formData.precioMin</code> y <code>formData.precioMax</code>.
+                <li>
+                    <h4>Kil&oacute;metros</h4>
+                    <p>Deben ser dos campos. Ambos deben comenzar <span class='badge estado-inicial'>vac&iacute;os</span> y deben ser <span class='label label-success opcionales'>campos opcionales</span>. POdr&iacute;an ser dropdowns o no. La motivaci&oacute;n para hacer de ellos un dropdown podr&iacute;a ser el intentar ahorrar trabajo para no tener que hacer un matching con las webs que s&iacute; que tienen los rangos de kilometraje tabulados. No obstante, como cada web puede tener sus propios rangos diferentes, va a ser necesario ahcer este matching dentro de cada uno de los drivers, por lo que no va a ahorrar.</p>
+                                        Se mapear&aacute;n a <code>formData.kilometrosMin</code> y <code>formData.kilometrosMax</code>.
+
                 </li>
             </ul>
-            Tiene que tener un boton para traerse los resultados
-            <h3>Los resultados</h3> Es un matriz con una cabecera
+            Tiene que tener un boton para traerse los resultados.
+            <h3>Los resultados</h3> Es un matriz con una cabecera.
             <h2>El modelo de datos interno de la aplicaci&oacute;n: <span class="highlight">aurora</span></h2>
             <p>El modelo de datos va ser un problema. El mapeo de las marcas no deber&iacute;a ser un problema, pero va a ser necesaria una tabla de equivalencia entre el c&oacute;digo interno de la aplicaci&oacute;n y todos los c&oacute;digos de las distintas webs.
                 <p>
@@ -63,6 +84,43 @@
                             </li>
                         </ul>
                     </p>
+                    <h3>Marcas</h3> Las marcas se guardarán en un ojeto JSON con la siguiente estructura:
+                    <pre>
+{
+marcas:
+    [                    
+        {
+          "nombre": "", <span class='text-muted'>// El nombre que saldrá en el formulario de b&uacute;squeda y en la tabla de resultados.</span>
+          "indice": <span class='text-info'>0</span>, <span class="text-muted">// Un &iacute;ndice que deber&iacute;a ser &uacute;nico para cada entrada</span>
+
+          <span class="text-muted">// cada uno de los subobjetos para las distintas web es un objeto</span>
+          "cochesnet": { 
+            "indice": <span class='text-info'>0</span>
+          },
+          <span class="text-muted">// esta web s&oacute;lo tiene un &iacute;ndice por lo que en vez de un objeto es un mero n&uacute;mero</span>
+          "unawebmas":<span class='text-info'>15</span>,
+          "otraWeb": {
+            "propiedadQueSea": "",
+            "propiedadAdicional": <span class='text-info'>0</span>
+          }
+        "...":... <span class="text-muted">// Todos los drivers que haga falta</span>
+        },
+        {...} <span class="text-muted">// Todas las marcas que haga falta</span>
+    ]
+}
+                    </pre> Cada una de las webs que se van a escrapear tiene que tener una entrada y tiene que tener como nombre el nombre del driver que la procesa
+                    <h3>Modelos de coche</h3> Los modelos tambi&eacute;n son objetos JSON con la siguiente estructura:
+                    <pre>
+{
+modelos:
+    [
+        {
+            "marca": <span class="text-info">23</span> <span class="text-muted">//el &iacute;ndice de la marca en el array de marcas para poder cruzar.</span>
+            "nombre": "", <span class='text-muted'>// El nombre que saldrá en el formulario de b&uacute;squeda y en la tabla de resultados.</span>
+        }
+    ]
+}
+                    </pre>
         </div>
     </div>
 </body>

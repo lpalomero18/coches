@@ -1,0 +1,31 @@
+
+form
+  div.form-group.marca
+    label(for='selectMarcas') Marca
+    select#selectMarcas.selectpicker(ng-model='formData.marca') 
+      include ./marcas.html
+  div.form-group.modelo
+    label(for='selectModelo') Modelo
+    select#selectModelo.selectpicker(ng-model='formData.modelo')
+  div.form-group.combustible
+    label(for='selectCombustible') Combustible
+    select#selectCombustible.selectpicker(ng-model='formData.combustible')
+  div.form-group.edad
+    label(for='ageMin') Posterior a
+    input(type='number' min='0'  ng-model='formData.ageMin').form-control#ageMin
+    label(for='ageMax') Anterior a
+    input(type='number' min='0'  ng-model='formData.ageMax').form-control#ageMax
+  div.form-group.kilometros
+    label(for='kilometrosMin') Km mínimos
+    input(type='number' min='0'  ng-model='formData.kilometrosMin').form-control#kilometrosMin
+    label(for='kilometrosMax') Km maximos
+    input(type='number' min='0'  ng-model='formData.kilometrosMax').form-control#kilometrosMax
+  div.form-group.Provincia
+    label(for='selectProvincias') Provincia
+    select#selectProvincias.selectpicker(ng-model='formData.provincia')
+  div.form-group.Pasta
+    label(for='precioMin') Min €
+    input#precioMin(type='number' ng-model='formData.precioMin').form-control
+    label(for='precioMax') Max €
+    input#precioMax(type='number' nng-model='formData.precioMax').form-control
+  button(type='submit' value='Search' ng-click="search()").btn.btn-default#searchCarsBtn Consulta

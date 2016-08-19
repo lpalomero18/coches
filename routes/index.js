@@ -1,24 +1,30 @@
 var express = require('express'),
     jsdom = require('jsdom'),
     request = require('request'),
-    url = require('url');
+    url = require('url'),
+    broker = require('../middlewares/broker.js');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-    res.render('index', {
-        title: 'Express'
-    });
+
+
+router.get('/coches', function(req, res) {
+    // GetResults tiene como parametros las opciones y un callback al que se llama que imprime los resultados
+    driver = broker.getDriver('testDriver');
+    console.log('ruta de busqueda: '+ req.query);
+    // console.log('tenemos driver: '+driver);
+    driver.getResults(
+        //primero el callback
+        function(resultados) {
+            res.set('Content-Type', 'application/json');
+            res.send(resultados);
+        },
+        //segundo los parametros debusqueda
+        req.query);
 });
 
-// funcion para aplanar el array de resultados
-function aplanaCoches(total, e) {
-    return total += '"' + e.marca + '";"' + e.modelo + '";"' + e.precio + '";"' + e.ciudad + '";"' + e.combustible + '";"' + e.year + '";"' + e.enlace + '";"' + e.kilometros + '";"' + e.vidaPorDelante + '";"' + e.costeAnual + '"\n';
-}
-
-// Funcion principal que recoge la ruta coches
-router.get('/coches', function(req, res) {
-    res.render('lista',{
+router.get('/', function(req, res) {
+    console.log('solicitada pagina principal');
+    res.render('lista', {
         title: 'Welcome to buscacochesquetecagas'
     });
     //var items;

@@ -2,11 +2,11 @@
  * Module Dependencies
  */
 
-var gulp = require('gulp');
-var browserSync = require('browser-sync');
-var reload = browserSync.reload;
-var nodemon = require('gulp-nodemon')
-    ,timeRequire=require("time-require");
+var gulp = require('gulp'),
+    browserSync = require('browser-sync'),
+    reload = browserSync.reload,
+    nodemon = require('gulp-nodemon'),
+    timeRequire = require("time-require");
 
 /**
  * Gulp Tasks
@@ -21,10 +21,15 @@ gulp.task('browser-sync', ['nodemon'], function() {
     });
 });
 
+
 gulp.task('nodemon', function(cb) {
     var called = false;
     return nodemon({
             script: 'app.js',
+/*            env: {
+                'NODE_ENV': 'development',
+                'DEBUG':'*'
+            },*/
             ignore: [
                 'gulpfile.js',
                 'node_modules/'

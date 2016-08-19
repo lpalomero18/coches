@@ -1,18 +1,4 @@
-doctype html
-html(lang='es' ng-app="buscaCochesApp")
-  head
-    meta(charset='utf-8')
-    meta(name='viewport', content='initial-scale=1, maximum-scale=1')
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='../bower_components/bootstrap/dist/css/bootstrap.min.css')
-    link(rel='stylesheet', href='../bower_components/bootstrap-select/dist/css/bootstrap-select.min.css')
-    script(src='./bower_components/jquery/dist/jquery.min.js')
-    script(src="./bower_components/bootstrap-select/dist/js/bootstrap-select.min.js")
-    script(src='./bower_components/bootstrap/dist/js/bootstrap.min.js')
-    script(src='./bower_components/bacon/dist/Bacon.min.js')
-    script(src='../bower_components/angular/angular.min.js')
-    script(src='./bower_components/angular-bacon/dist/angular-bacon.min.js')
+include ./includes/headers.pug
   body
     block content
 div.container
@@ -20,10 +6,20 @@ div.container
         h1= title
     div.row.content(ng-controller="CochesController")
       aside#busqueda.col-sm-4
-        include ./includes/busqueda.pug
-      div.row.row-content
+        include ./includes/formBusqueda.pug
+      div.row.row-content.col-sm-8
         table(data-role='listview').table-striped.table-bordered.table-hover.table-condensed
           tbody
+                tr
+                  th Marca
+                  th Modelo
+                  th Precio
+                  th Provincia
+                  th Combustible
+                  th Kilometros
+                  th Año
+                  th Vida por delante
+                  th Coste por año
                 tr.coches.clickable-row(ng-repeat="coche in coches")
                         td.
                           {{coche.marca}}
@@ -37,6 +33,8 @@ div.container
                           {{coche.combustible}}
                         td.
                           {{coche.kilometros}}
+                        td.
+                          {{coche.age}}
                         td.
                           {{coche.videPorDelante}}
                         td.
